@@ -11,6 +11,10 @@ class AbstractModel {
 
   private static $db;
 
+  public static function viewTableSchema()
+  {
+    return static::$tableSchema;
+  }
   public static function getAll()
   {
     // $sql = 'SELECT * FROM '. static::$tableName;
@@ -25,5 +29,14 @@ class AbstractModel {
     //   $results = $stmt->fetchAll(\PDO::FETCH_CLASS, get_called_class());
     // }
     // return $results;
+  }
+  public static function create()
+  {
+    $sql = 'INSERT INTO '.static::$tableName. ' SET ';
+    foreach (static::$tableSchema as $columnName) 
+    {
+      $sql .= $columnName . ' = :'.$columnName.' , '; 
+    }
+    echo trim($sql, ' , ');
   }
 }

@@ -8,6 +8,7 @@ class AbstractController
   protected $_action;
   protected $_params;
 
+  protected $_data = [];
   public function notFoundAction()
   {
     $this->_renderView();
@@ -37,6 +38,7 @@ class AbstractController
       $view = VIEWS_PATH.$this->_controller.DS.$this->_action.'.view.php';
       if (file_exists($view)) 
       {
+        extract($this->_data);
         require_once $view;
       }
       else

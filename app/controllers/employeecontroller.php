@@ -5,7 +5,7 @@ use PHPMVC\Models\EmployeeModel;
 class EmployeeController extends AbstractController{
   public function defaultAction()
   {
-    EmployeeModel::getAll();
+    $this->_data['employees'] = EmployeeModel::getAll();
     $this->_renderView();
   }
 }
