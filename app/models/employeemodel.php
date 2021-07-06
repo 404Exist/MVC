@@ -32,12 +32,12 @@ class EmployeeModel extends AbstractModel {
   {
     return $this->$props;
   }
-
+  public function setName($name) 
+  {
+    $this->$name = $name;
+  }
   public function calculateSalary() 
   {
     return $this->salary - ($this->salary * $this->tax);
-  }
-  public static function getAll() {
-    
   }
 }

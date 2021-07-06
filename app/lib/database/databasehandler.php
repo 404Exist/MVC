@@ -3,15 +3,19 @@ namespace PHPMVC\LIB\Database;
 
 abstract class DatabaseHandler
 {
+  // const DATABASE_DRIVER_POD = 1;
   private static $_instance;
   private static $_handler;
-  // const DATABASE_DRIVER_POD = 1;
 
   private function __construct() 
   {
+    // self::init();
+  }
+
+  public static function factory() {
     try {
       self::$_handler = new \PDO(
-        'mysql:host='. DATABASE_HOST_NAME. 
+        'mysql://hostname='. DATABASE_HOST_NAME. 
         ';dbname='. DATABASE_DB_NAME, 
         DATABASE_USER_NAME,
         DATABASE_PASSWORD
@@ -20,8 +24,6 @@ abstract class DatabaseHandler
     } catch(\PDOException $e) {
       echo $e->getMessage();
     }
-  }
-  public static function factory() {
-    
+    return static::$_handler;
   }
 }
