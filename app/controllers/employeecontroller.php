@@ -5,12 +5,25 @@ use PHPMVC\Models\EmployeeModel;
 class EmployeeController extends AbstractController{
   public function defaultAction()
   {
-    // $this->_data['employees'] = EmployeeModel::getAll();
+    $this->_data['employees'] = EmployeeModel::getAll();
 
     echo '<pre>';var_dump(EmployeeModel::getAll());echo '</pre>';
     // echo '<pre>';var_dump(EmployeeModel::getByPK(1));echo '</pre>';
     
     
+    
+
+    // Create
+    // $mohamed = new EmployeeModel('mahmoud', 10, 'menofia', 20, 30000);
+    // $mohamed->save();
+
+    // Update
+    $mohamed = EmployeeModel::getByPK(7);
+    $mohamed->setName('Mahmooooud');
+    $mohamed->save();
+    // echo '<pre>';var_dump($mohamed);echo '</pre>';
+
+    // Custome Select
     // echo '<pre>';
     // var_dump(EmployeeModel::get(
     //   'SELECT * FROM employees WHERE age = :age',
@@ -19,8 +32,10 @@ class EmployeeController extends AbstractController{
     //   )
     // ));
     // echo '</pre>';
-    $mohamed = new EmployeeModel('mahmoud', 10, 'menofia', 20, 30000)->getByPK(3);
-    $mohamed->save();
+
+    // Delete
+    // EmployeeModel::getByPK(3)->delete();
+
     $this->_renderView();
   }
 }
