@@ -28,16 +28,8 @@ class EmployeeModel extends AbstractModel {
     $this->salary = $salary;
   }
 
-  public function __get($props) 
-  {
-    return $this->$props;
-  }
-  public function setName($name) 
-  {
-    $this->name = $name;
-  }
   public function calculateSalary() 
   {
-    return $this->salary - ($this->salary * $this->tax);
+    return $this->salary - ($this->salary * ($this->tax / 100));
   }
 }

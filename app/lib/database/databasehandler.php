@@ -3,14 +3,9 @@ namespace PHPMVC\LIB\Database;
 
 abstract class DatabaseHandler
 {
-  // const DATABASE_DRIVER_POD = 1;
+  // const DATABASE_DRIVER_PDO = 1;
   private static $_instance;
   private static $_handler;
-
-  private function __construct() 
-  {
-    // self::init();
-  }
 
   public static function factory() {
     try {
@@ -24,6 +19,6 @@ abstract class DatabaseHandler
     } catch(\PDOException $e) {
       echo $e->getMessage();
     }
-    return static::$_handler;
+    return self::$_handler;
   }
 }

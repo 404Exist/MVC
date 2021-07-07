@@ -7,16 +7,18 @@ class AbstractModel {
   const DATA_TYPE_STR = \PDO::PARAM_STR;
   const DATA_TYPE_INT = \PDO::PARAM_INT;
   const DATA_TYPE_DECIMAL = 4;
-  const DATA_TYPE_DATE = 5;
-
-  private static $db;
-
-  public static function viewTableSchema()
-  {
-    return static::$tableSchema;
-  }
   
-  public function prepareValues(\PDOStatement &$stmt)
+  private static function buildNameParametersSQL()
+  {
+    $namedParams = '';
+    foreach (static::$tableSchema as $columnName => $type) 
+    {
+      $namedParams .= $columnName . ' = :'.$columnName.', '; 
+    }
+    return trim($namedParams, ', ');
+  }
+
+  public function prepareValues($stmt)
   {
     foreach (static::$tableSchema as $columnName => $type) 
     {
@@ -35,15 +37,7 @@ class AbstractModel {
       }
     }
   }
-  private static function buildNameParametersSQL()
-  {
-    $namedParams = '';
-    foreach (static::$tableSchema as $columnName => $type) 
-    {
-      $namedParams .= $columnName . ' = :'.$columnName.', '; 
-    }
-    return trim($namedParams, ', ');
-  }
+  
   public function create()
   {
     $sql = 'INSERT INTO '.static::$tableName. ' SET '. self::buildNameParametersSQL();
@@ -98,6 +92,7 @@ class AbstractModel {
     }
     return $results;
   }
+  
   public static function getByPK($pk)
   {
     $sql = 'SELECT * FROM '. static::$tableName.' WHERE '.static::$primaryKey.' = "'.$pk.'"';
@@ -110,6 +105,7 @@ class AbstractModel {
         array_keys(static::$tableSchema)
       );
       return array_shift($obj);
+      // means return $obj only without array[0]
     }
     return false;
   }
