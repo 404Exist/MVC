@@ -1,9 +1,12 @@
 <?php
-const PUBLIC_PATH = '1Apps/MVC/public';
+// const PUBLIC_PATH = '1Apps/MVC/public';
 
 define('DS', '/'); // returns [ / ] value to DS
-define('APP_PATH', str_replace('\\', '/', dirname(__FILE__))); // now we back to app/ folder
+define('APP_PATH', str_replace('\\', '/', dirname(__FILE__)).'/..'); // now we back to app/ folder
 define('VIEWS_PATH', APP_PATH. DS. 'views'. DS); // now we back to app/views/ folder
+define('TEMPLATE_PATH', APP_PATH. DS. 'template'. DS); // now we back to app/template/ folder
+define('CSS', '/css/');
+define('JS', '/js/');
 
 
 defined('DATABASE_HOST_NAME') ? null : define('DATABASE_HOST_NAME', 'locaslhost');

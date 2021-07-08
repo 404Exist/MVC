@@ -39,7 +39,14 @@ class AbstractController
       if (file_exists($view)) 
       {
         extract($this->_data);
+        require_once TEMPLATE_PATH . 'templateheaderstart.php';
+        require_once TEMPLATE_PATH . 'templateheaderend.php';
+        require_once TEMPLATE_PATH . 'header.php';
+        require_once TEMPLATE_PATH . 'nav.php';
+        require_once TEMPLATE_PATH . 'viewstart.php';
         require_once $view;
+        require_once TEMPLATE_PATH . 'viewend.php';
+        require_once TEMPLATE_PATH . 'templatefooter.php';
       }
       else
       {

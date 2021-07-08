@@ -18,7 +18,7 @@ class FrontController
 
   private function _parseUrl()
   {
-    $url = explode('/', trim(str_replace(PUBLIC_PATH, '', $_SERVER['REQUEST_URI']), '/'), 3);
+    $url = explode('/', trim($_SERVER['REQUEST_URI'], '/'), 3);
     if ($url[0] != '') 
     {
       $this->_controller = $url[0];

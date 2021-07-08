@@ -16,6 +16,7 @@ tr:nth-child(even) {
 }
 </style>
 <h1>Our Employees</h1>
+<a href="/employee/add">Add new employee</a>
 <table>
   <thead>
     <tr>
@@ -41,8 +42,8 @@ tr:nth-child(even) {
         <td><?= $employee->calculateSalary() ?> L.E</td>
         <td><?= $employee->tax ?>%</td>
         <td>
-          <a href="employee/edit/<?= $employee->id ?>">Edit</a>
-          <a href="employee/delete/<?= $employee->id ?>" onclik="if(!confirm('do you want to delete ?'))">Delete</a>
+          <a href="/employee/edit/<?= $employee->id ?>">Edit</a>
+          <a href="/employee/delete/<?= $employee->id ?>" onclick="return !confirm('do you want to delete ?') ?  false : true;">Delete</a>
         </td>
       </tr>
       <?php 

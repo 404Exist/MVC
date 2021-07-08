@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+ul {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+header {
+  background: brown;
+  display: flex;
+  align-items: center;
+  color: white;
+  padding: 3px 10px;
+}
+
+header i.rotate {
+  transform: rotate(90deg);
+}
+header i.unrotate {
+  transform: rotate(0deg);
+}
+header a{
+  color: white;
+}
+
+header h1 {
+  margin: 0 15px;
+}
+
+.wrapper {
+  display: flex;
+}
+
+nav {
+  background: #961010;
+  height: calc(100vh - 45px);
+  color: white;
+  width: 17%;
+  
+}
+nav.close_nav {
+  width: 0;
+}
+
+nav.open_nav {
+  width: 17%;
+}
+
+.employee_info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: calc(25vh - 22.5px);
+}
+
+.profile_picture {
+  width: 100px;
+  background: white;
+  padding: 4px 4px 0px 4px;
+  border-radius: 50%;
+}
+
+.profile_picture img {
+  width: 100%;
+  height: auto;
+}
+
+.name {
+  font-weight: bold;
+  font-style: italic;
+  letter-spacing: 2px;
+}
+
+.app_navigation {
+  background: #3a0000;
+  height: calc(75vh - 22.5px);
+}
+
+.app_navigation li {
+  padding: 20px 10px;
+  cursor: pointer;
+}
+
+.app_navigation li:hover {
+  background: black;
+}
+
+.app_navigation a {
+  color: white;
+}
+
+.action_view {
+  flex: 1;
+}
+
+.action_view {
+  padding: 20px;
+}
+
+@media (max-width:800px) {
+  nav.open_nav {
+    width: 30%;
+  }
+}

@@ -43,7 +43,16 @@ class AbstractModel {
     $sql = 'INSERT INTO '.static::$tableName. ' SET '. self::buildNameParametersSQL();
     $stmt = DatabaseHandler::factory()->prepare($sql);
     $this->prepareValues($stmt);
-    return $stmt->execute();
+    if ($stmt->execute())
+    {
+      $maxPrimary = 'SELECT MAX('.static::$primaryKey.') as maxPrimary FROM '.static::$tableName;
+      $maxPrimary = DatabaseHandler::factory()->prepare($maxPrimary);
+      $maxPrimary->execute();
+      $maxPrimary = $maxPrimary->fetch()['maxPrimary'];
+      $this->{static::$primaryKey} = $maxPrimary;
+      return true;
+    }
+    return false;
   }
 
   private function update()
@@ -99,11 +108,18 @@ class AbstractModel {
     $stmt = DatabaseHandler::factory()->prepare($sql);
     if($stmt->execute())
     {
-      $obj = $stmt->fetchAll(
-        \PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, 
-        get_called_class(), 
-        array_keys(static::$tableSchema)
-      );
+      if (method_exists(get_called_class(), '__construct'))
+      {
+        $obj = $stmt->fetchAll(
+          \PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, 
+          get_called_class(), 
+          array_keys(static::$tableSchema)
+        );
+      }
+      else 
+      {
+        $obj = $stmt->fetchAll(\PDO::FETCH_CLASS, get_called_class());
+      }
       return array_shift($obj);
       // means return $obj only without array[0]
     }
@@ -133,12 +149,19 @@ class AbstractModel {
       }
     }
     $stmt->execute();
-    $results = $stmt->fetchAll(
-      \PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, 
-      get_called_class(), 
-      array_keys(static::$tableSchema)
-    );
-    return (is_array($results) && !empty($results)) ? $results : false;
+    if (method_exists(get_called_class(), '__construct'))
+    {
+      $results = $stmt->fetchAll(
+        \PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, 
+        get_called_class(), 
+        array_keys(static::$tableSchema)
+      );
+    }
+    else 
+    {
+      $results = $stmt->fetchAll(\PDO::FETCH_CLASS, get_called_class());
+    }
+    return (is_array($results) && !empty($results)) ? new \ArrayIterator($results) : false;
   }
 
   

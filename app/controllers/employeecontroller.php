@@ -1,49 +1,83 @@
 <?php
 namespace PHPMVC\Controllers;
 use PHPMVC\Models\EmployeeModel;
+use PHPMVC\LIB\InputFilter;
+use PHPMVC\LIB\Helper;
 
-class EmployeeController extends AbstractController{
+class EmployeeController extends AbstractController
+{
+  use InputFilter;
+  use Helper;
+  
   public function defaultAction()
   {
     $this->_data['employees'] = EmployeeModel::getAll();
     $this->_renderView();
-
-    // echo '<pre>';var_dump(EmployeeModel::getAll());echo '</pre>';
-    // echo '<pre>';var_dump(EmployeeModel::getByPK(5));echo '</pre>';
-    
-    // Create
-      // $mohamed = new EmployeeModel('mahmoud', 10, 'menofia', 20, 30000);
-      // $mohamed->save();
-
-    // Update
-      // $mohamed = EmployeeModel::getByPK(5);
-      // $mohamed->name = 'Ahmed';
-      // $mohamed->age = 25;
-      // $mohamed->address = 'Menofia';
-      // $mohamed->tax = 20;
-      // $mohamed->salary = 20000;
-      // $mohamed->save();
-    // echo '<pre>';var_dump($mohamed);echo '</pre>';
-
-    // Custome Select
-      // echo '<pre>';
-      // var_dump(EmployeeModel::get(
-      //   'SELECT * FROM employees WHERE age = :age',
-      //   array(
-      //     'age' => array(EmployeeModel::DATA_TYPE_INT, 25)
-      //   )
-      // ));
-      // echo '</pre>';
-
-    // Delete
-      // EmployeeModel::getByPK(3)->delete();
   }
   public function addAction()
   {
     if (isset($_POST['submit'])) {
-      $employee = new EmployeeModel();
-      var_dump($_POST);
+      $employee = new EmployeeModel(
+        $this->filterString($_POST['name']), 
+        $this->filterInt($_POST['age']),
+        $this->filterString($_POST['address']),
+        $this->filterFloat($_POST['tax']),
+        $this->filterFloat($_POST['salary'])
+      );
+      if ($employee->save())
+      {
+        $this->redirect('/employee');
+      }
     }
     $this->_renderView();
   }
+  public function editAction()
+  {
+    $id = $this->filterInt($this->_params[0]);
+    $employee = EmployeeModel::getByPK($id);
+
+    if(!isset($this->_params[0]) || empty($this->filterInt($this->_params[0])) || !$employee)
+    {
+      $this->redirect('/employee');
+    }
+
+    $this->_data['employee'] = $employee;
+    if (isset($_POST['submit'])) {
+      $employee->name = $this->filterString($_POST['name']);
+      $employee->age = $this->filterInt($_POST['age']);
+      $employee->address = $this->filterString($_POST['address']);
+      $employee->tax = $this->filterFloat($_POST['tax']);
+      $employee->salary = $this->filterFloat($_POST['salary']);
+      if ($employee->save())
+      {
+        $this->redirect('/employee');
+      }
+    }
+    $this->_renderView();
+  }
+  public function deleteAction()
+  {
+    $id = $this->filterInt($this->_params[0]);
+    $employee = EmployeeModel::getByPK($id);
+
+    if(!isset($this->_params[0]) || empty($this->filterInt($this->_params[0])) || !$employee)
+    {
+      $this->redirect('/employee');
+    }
+    if ($employee->delete())
+    {
+      $this->redirect('/employee');
+    }
+    
+  }
+
+  // Custome Select
+    // echo '<pre>';
+    // var_dump(EmployeeModel::get(
+    //   'SELECT * FROM employees WHERE age = :age',
+    //   array(
+    //     'age' => array(EmployeeModel::DATA_TYPE_INT, 25)
+    //   )
+    // ));
+    // echo '</pre>';
 }
