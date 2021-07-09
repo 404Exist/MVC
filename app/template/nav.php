@@ -7,8 +7,9 @@
       <span class="name">Osama Saad</span>
     </div>
     <ul class="app_navigation">
-      <a href="/"><li><i class="fas fa-tachometer-alt"></i> Analytics</li></a>
-      <a href="/employee"><li><i class="fa fa-users"></i> Employees</li></a>
-      <a href=""><li><i class="fa fa-sign-out"></i> Sign Out</li></a>
+      <a href="/"><li><i class="fas fa-tachometer-alt"></i> <?= $text_analytics ?></li></a>
+      <a href="/employee"><li><i class="fa fa-users"></i> <?= $text_employees ?></li></a>
+      <a href="/language"><li><i class="fa fa-language"></i> <?= $text_change_language ?></li></a>
+      <a href=""><li><i class="fa fa-sign-out"></i> <?= $text_logout ?></li></a>
     </ul>
   </nav>

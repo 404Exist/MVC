@@ -9,5 +9,5 @@
   >
       <i class="fas fa-bars fa-2x"></i>
   </a>
-  <h1>Home</h1>
+  <h1><?= $text_dashboard ?></h1>
 </header>

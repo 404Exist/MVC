@@ -5,6 +5,7 @@ define('DS', '/'); // returns [ / ] value to DS
 define('APP_PATH', str_replace('\\', '/', dirname(__FILE__)).'/..'); // now we back to app/ folder
 define('VIEWS_PATH', APP_PATH. DS. 'views'. DS); // now we back to app/views/ folder
 define('TEMPLATE_PATH', APP_PATH. DS. 'template'. DS); // now we back to app/template/ folder
+define('LANGUAGE_PATH', APP_PATH. DS. 'languages'. DS); // now we back to app/template/ folder
 define('CSS', '/css/');
 define('JS', '/js/');
 
@@ -15,3 +16,5 @@ defined('DATABASE_PASSWORD') ? null : define('DATABASE_PASSWORD', '');
 defined('DATABASE_DB_NAME') ? null : define('DATABASE_DB_NAME', 'MVC');
 defined('DATABASE_PORT_NUBER') ? null : define('DATABASE_PORT_NUBER', 3306);
 defined('DATABASE_CONN_DRIVER') ? null : define('DATABASE_CONN_DRIVER', 1);
+
+defined('DEFAULT_LANGUAGE') ? null : define('DEFAULT_LANGUAGE', 'en');

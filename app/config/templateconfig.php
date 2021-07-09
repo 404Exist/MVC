@@ -12,12 +12,13 @@ return [
     'css' => [
       'font'  => 'https://pro.fontawesome.com/releases/v5.10.0/css/all.css',
       'style' =>  CSS.'style.css'
+    ],
+    'js' => [
+
     ]
   ],
   'footer_resources' => [
-    'js' => [
-      'cookies'  => JS.'cookies.js',
-      'main'     => JS.'main.js'
-    ]
+    'cookies'  => JS.'cookies.js',
+    'main'     => JS.'main.js'
   ]
 ];

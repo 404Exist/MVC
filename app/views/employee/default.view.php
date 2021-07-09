@@ -16,16 +16,16 @@ tr:nth-child(even) {
 }
 </style>
 <h1>Our Employees</h1>
-<a href="/employee/add">Add new employee</a>
+<a href="/employee/add"><?= $text_add_employee ?></a>
 <table>
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Age</th>
-      <th>Address</th>
-      <th>Salary</th>
-      <th>Tax (%)</th>
-      <th>Control</th>
+      <th><?= $text_table_employee_name ?></th>
+      <th><?= $text_table_employee_age ?></th>
+      <th><?= $text_table_employee_address ?></th>
+      <th><?= $text_table_employee_salary ?></th>
+      <th><?= $text_table_employee_tax ?></th>
+      <th><?= $text_table_employee_control ?></th>
     </tr>
   </thead>
   <tbody>
@@ -42,8 +42,8 @@ tr:nth-child(even) {
         <td><?= $employee->calculateSalary() ?> L.E</td>
         <td><?= $employee->tax ?>%</td>
         <td>
-          <a href="/employee/edit/<?= $employee->id ?>">Edit</a>
-          <a href="/employee/delete/<?= $employee->id ?>" onclick="return !confirm('do you want to delete ?') ?  false : true;">Delete</a>
+          <a href="/employee/edit/<?= $employee->id ?>"><?= $text_employee_edit ?></a>
+          <a href="/employee/delete/<?= $employee->id ?>" onclick="return !confirm('<?= $text_delete_confirm ?>') ?  false : true;"><?= $text_employee_delete ?></a>
         </td>
       </tr>
       <?php 
